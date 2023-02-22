@@ -1,6 +1,6 @@
 from django.db import models
 
-from management.models import Aministrator
+from management.models import Administrator
 
 
 class Resident(models.Model):
@@ -15,7 +15,7 @@ class Resident(models.Model):
     description = models.TextField(max_length=300, null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
-    administrator = models.ForeignKey(Aministrator, on_delete=models.CASCADE, null=True)
+    administrator = models.ForeignKey(Administrator, on_delete=models.CASCADE, null=True)
 
     gender = models.CharField(max_length=6, choices=gender_options, null=True)
 
