@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Raportare problemă / avarie</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/my_style.css' %}">
+</head>
+<body>
+	<div class="container">
+		<h1>Raportare problemă / avarie</h1>
+		<form method="post" action="{% url 'submit_issue' %}">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="nume_locatar">Nume Locatar:</label>
+				<input type="text" id="nume_locatar" name="nume_locatar" required>
+			</div>
+			<div class="form-group">
+				<label for="nr_apartament">Număr Apartament:</label>
+				<input type="number" id="nr_apartament" name="nr_apartament" required>
+			</div>
+			<div class="form-group">
+				<label for="descriere">Descriere:</label>
+				<textarea id="descriere" name="descriere" rows="5" required></textarea>
+			</div>
+			<button type="submit">Raportează</button>
+		</form>
+	</div>
+</body>
+</html>

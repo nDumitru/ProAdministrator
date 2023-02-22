@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %} List of residents {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Filters</h3>
+                    </div>
+                    <form method="get">
+                        <div class="card-body">
+                            {{ my_filters.form.as_p }}
+                        </div>
+                        <div class="card-footer text-center">
+                            {% if perms.student.list_residents %}
+                                <button type="submit" class="btn btn-outline-success">Search</button>
+                                <a href="{% url 'list-of-residents' %}" class="btn btn-outline-danger">Reset</a>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8">
+                {% if all_students %}
+                    <table class="table table-striped table-light">
+                        <thead>
+                        <tr>
+                            <th> First Name</th>
+                            <th> Last Name</th>
+                            <th> Email</th>
+                            <th> Chirias?</th>
+                            <th> Start date</th>
+                            <th> End date</th>
+                            <th> Name of administrator</th>
+                            <th> Apartament</th>
+                            <th class="align_right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for resident in all_residents %}
+                            <tr>
+                                <td>{{ resident.first_name }}</td>
+                                <td>{{ resident.last_name }}</td>
+                                <td>{{ resident.email }}</td>
+                                <td>
+                                    {% if resident.chirias %}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>{{ resident.start_date|date:"d-m-Y" }}</td>
+                                {# { residents.start_date_time|date:"d-m-Y" H:I:S }} #}
+                                <td>{{ resident.end_date|date:"d-m-Y" }}</td>
+                                <td>
+                                    {% if resident.administrator %}
+                                        {{ resident.administrator }}
+                                    {% else %}
+                                        No administrator
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if resident.administrator.apartament %}
+                                        {{ resident.administrator.apartament }}
+                                    {% else %}
+                                        No apartament
+                                    {% endif %}
+                                </td>
+                                <td class="align_right">
+                                    {% if perms.resident.change_resident or perms.resident.delete_resident or perms.resident.view_resident or perms.resident.inactivate_resident %}
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            more actions
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {% if perms.resident.change_resident %}
+                                                <li>
+                                                <a class="dropdown-item" href="{% url 'update-residents' resident.id %}">Update</a>
+                                            {% endif %}
+                                            </li>
+                                            {% if perms.resident.delete_resident %}
+                                                <li>
+                                                <a class="dropdown-item" href="{% url 'delete-residents' resident.id %}">Delete</a>
+                                            {% endif %}
+                                            </li>
+                                            {% if perms.resident.view_resident %}
+                                                <li><a class="dropdown-item"
+                                                       href="{% url 'details-of-residents' resident.id %}">Details</a></li>
+                                            {% endif %}
+
+                                            {% if perms.resident.inactivate_resident %}
+                                                <li>
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#resident_{{ resident.id }}">
+                                                        Inactive
+                                                    </button>
+                                                </li>
+                                            {% endif %}
+
+                                        </ul>
+                                    </div>
+                                     {% endif %}
+                                </td>
+                                <td>
+                                    {% if perms.resident.inactivate_resident %}
+                                        <div class="modal fade" id="resident_{{ resident.id }}" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5"
+                                                            id="exampleModalLabel">{{ resident }}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Do you want to
+                                                        inactivate {{ resident.first_name }} {{ resident.last_name }}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">No
+                                                        </button>
+                                                        <a href="{% url 'inactive-residents' resident.id %}"
+                                                           class="btn btn-danger">Yes</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h3 class="text-center"> No data found</h3>
+                {% endif %}
+            </div>
+
+            {#            {% for management in trainers %}#}
+            {#                <p>{{ management.first_name }} {{ management.last_name }}</p>#}
+            {##}
+            {#            {% endfor %}#}
+        </div>
+    </div>
+{% endblock %}

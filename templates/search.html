@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %} Search {% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+        <div class="row gy-5">
+            {% if entries %}
+                {% for trainer in entries %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ trainer }}</h5>
+                                {# se poate si {{ management.first_name }} {{ management.last_name }} #}
+                                <h6 class="card-subtitle mb-2 text-muted">{{ trainer.course }}</h6>
+                                <div style="height: 80px; overflow-x: auto">
+                                    <p class="card-text">{{ trainer.description }} </p>
+                                    <p>   {{ trainer.start_date|date:"d-m-Y" }}</p>
+                                </div>
+                                <div class="align_center">
+                                    <div class="dropdown">
+                                        <a class="btn btn-success dropdown-toggle width:155px" role="button"
+                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                            more actions
+                                        </a>
+                                        <ul class="dropdown-menu size_ul_trainer">
+                                            <li><a class="dropdown-item"
+                                                   href="{% url 'update-management' trainer.id %}">Update</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                   href="{% url 'delete-management' trainer.id %}">Delete</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                   href="{% url 'details-of-management' trainer.id %}">Details</a></li>
+                                            <li>
+                                                {# Modal call #}
+                                                <button type="button" class="dropdown-item d-grid gap-2"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#trainer_{{ trainer.id }}">
+                                                    {% if trainer.active %}
+                                                        Inactive
+                                                    {% else %}
+                                                        Activate
+                                                    {% endif %}
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# Modal popup #}
+                    <div class="modal fade" id="trainer_{{ trainer.id }}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ trainer }}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Do you want to  {% if trainer.active %} inactivate  {% else %}
+                                    activate {% endif %} {{ trainer.first_name }} {{ trainer.last_name }} ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        No
+                                    </button>
+                                    <a href="{% url 'inactive-management' trainer.id %}" class="btn btn-danger">Yes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <h3 class="text-center"> No data found</h3>
+                </div>
+            {% endif %}
+        </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %} List of trainers {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row gy-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Filters</h3>
+                    </div>
+                    <form method="get">
+                        <div class="card-body">
+                            {{ my_filters.form.as_p}}
+                        </div>
+                        <div class="card-footer text-center">
+                            {%  if perms.trainer.list_of_trainers %}
+                            <button type="submit" class="btn btn-outline-success">Search</button>
+                            <a href="{% url 'list-of-trainers' %}" class="btn btn-outline-danger">Reset</a>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <div class="col-md-8">
+        <div class="row">
+            {% for trainer in all_trainers %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ trainer.course }}</h6>
+                            <div style="overflow-x:auto; height:100px">
+                                <p class="card-text">{{ trainer.description }}</p>
+                            </div>
+                        {%  if perms.trainer.change_trainer or perms.trainer.delete_trainer or perms.trainer.view_trainer or  perms.trainer.inactivate_trainer %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    more actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {%  if perms.trainer.change_trainer %}
+                                    <li><a class="dropdown-item" href="{% url 'update-management' trainer.id %}">Update</a>
+                                    {% endif %}
+                                    </li>
+                                    {%  if perms.trainer.delete_trainer %}
+                                    <li><a class="dropdown-item" href="{% url 'delete-management' trainer.id %}">Delete</a>
+                                    {% endif %}
+                                    </li>
+                                    {%  if perms.trainer.view_trainer %}
+                                    <li><a class="dropdown-item" href="{% url 'details-of-management' trainer.id %}">Details</a>
+                                    {% endif %}
+                                    </li>
+                                    <li>
+                                    {%  if perms.trainer.inactivate_trainer %}
+                                        {# Modal call #}
+                                        <button type="button" class="dropdown-item d-grid gap-2"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trainer_{{ trainer.id }}">
+                                            {% if trainer.active %}
+                                                Inactive
+                                            {% else %}
+                                                Activate
+                                            {% endif %}
+                                        </button>
+                                    {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+                {# Modal popup #}
+                <div class="modal fade" id="trainer_{{ trainer.id }}" tabindex="-1"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ trainer }}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Do you want to {% if trainer.active  %} inactivate  {% else %} activate {% endif %}{{ trainer.first_name }} {{ trainer.last_name }} ?
+                            </div>
+                        {%  if perms.trainer.inactivate_trainer %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    No
+                                </button>
+                                <a href="{% url 'inactive-management' trainer.id %}" class="btn btn-danger">Yes</a>
+                            </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

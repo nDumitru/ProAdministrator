@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Introducere{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Bun venit la ProAdmin</h1>
+        <p class="lead">Aplicația noastră vă ajută să administrați blocurile de locuințe într-un mod simplu și eficient.</p>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Pentru administratori</h2>
+                <p class="lead">Gestionați toate aspectele legate de administrația blocului dumneavoastră de locuințe, de la întreținere și contabilitate, la comunicație și raportare.</p>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'admin:login' %}" role="button">Logare pentru administratori &raquo;</a></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Pentru locatari</h2>
+                <p class="lead">Fiți la curent cu tot ceea ce se întâmplă în blocul dumneavoastră de locuințe, de la facturi și plăți, la comunicare și raportare de probleme.</p>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'residents:login' %}" role="button">Logare pentru locatari &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

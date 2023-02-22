@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Search Results</h1>
+  <p>Found {{ residents.count }} results for "{{ search_query }}".</p>
+  <ul>
+    {% for resident in residents %}
+      <li>{{ resident.name }} - Apartment {{ resident.apartment_number }}</li>
+    {% empty %}
+      <li>No results found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

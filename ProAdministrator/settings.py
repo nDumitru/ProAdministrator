@@ -61,8 +61,7 @@ ROOT_URLCONF = "ProAdministrator.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -129,3 +128,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+# configurere mail
+#
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+EMAIL_HOST = 'mail.nechitadumitru.ro'  # mail.email.ro
+EMAIL_HOST_USER = 'test@nechitadumitru.ro'
+EMAIL_HOST_PASSWORD = 'Django1234!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# TLS- Transport Layer Security - sunt protocoale criptografice ce permit comunicatii sigure pe internet.

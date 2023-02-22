@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Welcome, Admin</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">You can manage apartments, owners, expenses and more!</p>
+                        <a href="#" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Recent Owners</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Apartment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>johndoe@gmail.com</td>
+                                    <td>10A</td>
+                                </tr>
+                                <tr>
+                                    <td>Jane Doe</td>
+                                    <td>janedoe@gmail.com</td>
+                                    <td>10B</td>
+                                </tr>
+                                <tr>
+                                    <td>Bob Smith</td>
+                                    <td>bobsmith@gmail.com</td>
+                                    <td>11C</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

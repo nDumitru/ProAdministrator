@@ -1,0 +1,36 @@
+/* Set the background color of the page */
+body {
+  background-color: #f2f2f2;
+}
+
+/* Center the container for the intro section */
+.intro-container {
+  margin: auto;
+  max-width: 800px;
+  padding-top: 100px;
+}
+
+/* Style for the title */
+.intro-title {
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* Style for the subtitle */
+.intro-subtitle {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* Style for the image */
+.intro-image {
+  display: block;
+  margin: auto;
+  max-width: 400px;
+  max-height: 400px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}

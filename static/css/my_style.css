@@ -1,0 +1,14 @@
+.cover{
+    background-image: url('../img/earth_3.jpg');
+    background-size:cover;
+    height: 100vh;
+}
+
+.errorlist{
+    color:red;
+    list-style-type: none;
+}
+
+.align_right{
+    text-align: right;
+}

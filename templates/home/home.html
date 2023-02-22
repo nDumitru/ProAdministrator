@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}ProAdmin | Home{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Welcome to ProAdmin</h1>
+        <p>This is the home page of our site. Please use the navigation bar to access the other pages of the site.</p>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive" src="{% static 'static/img/apartament.jpg' %}" alt="Apartment building">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

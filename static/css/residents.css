@@ -1,0 +1,62 @@
+/* Residents page styles */
+
+/* Style the header */
+.residents-header {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+/* Style the table */
+.residents-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.residents-table td, .residents-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.residents-table th {
+  text-align: left;
+  background-color: #f2f2f2;
+  color: #555;
+}
+
+/* Style the form */
+.residents-form {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.residents-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.residents-form input[type="text"],
+.residents-form input[type="email"],
+.residents-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.residents-form input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.residents-form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Add any additional styles as needed */

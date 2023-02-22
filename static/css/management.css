@@ -1,0 +1,22 @@
+/* management.css */
+
+/* Styles for the management app */
+.container-fluid {
+  margin-top: 2rem;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.table {
+  margin-top: 2rem;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.btn {
+  margin-top: 1rem;
+}

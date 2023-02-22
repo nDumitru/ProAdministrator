@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Student - {{ student }} {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center"> Resident - {{ resident }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p> Age: {{ resident.age }}</p>
+                        <p> Email: {{ resident.email }}</p>
+                        <p> Is Active: {% if resident.active %} Yes {% else %} No {% endif %}</p>
+                        <p> Name of trainer: {{ resident.management }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{% url 'list-of-residents' %}" class="btn btn-outline-success">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

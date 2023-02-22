@@ -1,0 +1,19 @@
+<!-- add_resident.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Adăugare locatar</h1>
+  <form action="{{ url_for('add_resident') }}" method="POST">
+    <label for="first_name">Prenume:</label>
+    <input type="text" id="first_name" name="first_name"><br>
+
+    <label for="last_name">Nume:</label>
+    <input type="text" id="last_name" name="last_name"><br>
+
+    <label for="apartment_number">Număr apartament:</label>
+    <input type="text" id="apartment_number" name="apartment_number"><br>
+
+    <input type="submit" value="Adaugă">
+  </form>
+{% endblock %}
