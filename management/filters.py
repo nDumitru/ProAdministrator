@@ -2,11 +2,10 @@ import django_filters
 from django import forms
 from django_filters import DateFilter
 
-from management.models import Trainer
-# from student.models import Student
+from management.models import Administrator
 
 
-class TrainerFilter(django_filters.FilterSet):
+class AdministratorFilter(django_filters.FilterSet):
 
     first_name = django_filters.CharFilter(lookup_expr='icontains', label='First name')
     last_name = django_filters.CharFilter(lookup_expr='icontains', label='Last name')
@@ -25,12 +24,15 @@ class TrainerFilter(django_filters.FilterSet):
                               widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}))
 
     class Meta:
-        model = Trainer
+        model = Administrator
         fields = ['first_name', 'last_name', 'course', 'start_date_gte', 'start_date_lte',  'end_date_gte',
                   'end_date_lte']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.filters['first_name'].field.widget.attrs.update({'class': 'form-control', 'placeholder': 'Plase enter first name'})
-        self.filters['last_name'].field.widget.attrs.update({'class': 'form-control', 'placeholder': 'Plase enter last name'})
-        self.filters['course'].field.widget.attrs.update({'class': 'form-control', 'placeholder': 'Please enter course'})
+        self.filters['first_name'].field.widget.attrs.update({'class': 'form-control',
+                                                              'placeholder': 'Plase enter first name'})
+        self.filters['last_name'].field.widget.attrs.update({'class': 'form-control',
+                                                             'placeholder': 'Plase enter last name'})
+        self.filters['apartament'].field.widget.attrs.update({'class': 'form-control',
+                                                              'placeholder': 'Please enter apartament'})
