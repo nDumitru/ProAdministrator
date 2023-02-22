@@ -34,7 +34,7 @@ class ResidentFilter(django_filters.FilterSet):
 
     class Meta:
         model = Resident
-        fields = ['first_name', 'last_name', 'is_olympic', 'start_date_gte', 'start_date_lte',  'end_date_gte',
+        fields = ['first_name', 'last_name', 'chirias', 'start_date_gte', 'start_date_lte',  'end_date_gte',
                   'end_date_lte', 'management']
 
     def __init__(self, *args, **kwargs):
