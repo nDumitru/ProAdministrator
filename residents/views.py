@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 
 from residents.filters import ResidentFilter
-from residents.forms import ResidentForm, ResidentUpdateForm
-from residents.models import Resident
+from .forms import ResidentForm, ResidentUpdateForm
+from .models import Resident
 
 
 class ResidentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
