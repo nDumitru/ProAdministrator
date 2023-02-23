@@ -6,7 +6,22 @@ from .models import Resident
 class ResidentForm(forms.ModelForm):
     class Meta:
         model = Resident
-        fields = ['first_name', 'last_name', 'apartment_number', 'email', 'phone_number']
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'phone_number',
+            'date_of_birth',
+            'apartment',
+            'start_date',
+            'end_date',
+            'notes',
+        ]
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

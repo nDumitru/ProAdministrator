@@ -14,7 +14,6 @@ class ResidentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     model = Resident
     form_class = ResidentForm
     success_url = reverse_lazy('list-of-residents')
-    permission_required = 'residents.add_resident'
 
 
 class ResidentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
