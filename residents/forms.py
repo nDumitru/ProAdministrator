@@ -34,3 +34,16 @@ class ResidentForm(forms.ModelForm):
 
     def clean_last_name(self):
         return self.cleaned_data['last_name'].capitalize()
+
+
+class ResidentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Resident
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'apartment_number']
+        labels = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'email': 'Email',
+            'phone_number': 'Phone Number',
+            'apartment_number': 'Apartment Number'
+        }
