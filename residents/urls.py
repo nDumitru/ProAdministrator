@@ -2,7 +2,7 @@ from django.urls import path
 from residents import views
 from .views import ResidentListView
 
-app_name = 'residents'
+app_name = 'ProAdministrator'
 
 urlpatterns = [
     path('', ResidentListView.as_view(), name='resident-list'),
