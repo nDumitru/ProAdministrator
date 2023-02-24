@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .models import Resident
+from .models import Resident, Apartment
 
 
 class ResidentForm(forms.ModelForm):
@@ -39,11 +39,17 @@ class ResidentForm(forms.ModelForm):
 class ResidentUpdateForm(forms.ModelForm):
     class Meta:
         model = Resident
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'apartment_number']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'apartment']
         labels = {
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'email': 'Email',
             'phone_number': 'Phone Number',
-            'apartment_number': 'Apartment Number'
+            'apartment': 'Apartment'
         }
+
+    def clean_first_name(self):
+        return self.cleaned_data['first_name'].capitalize()
+
+    def clean_last_name(self):
+        return self.cleaned_data['last_name'].capitalize()
