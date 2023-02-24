@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .models import Resident, Apartment
+from .models import Resident
 
 
 class ResidentForm(forms.ModelForm):
