@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Management Dashboard</h1>
+  
+  <h2>Blocks</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for block in blocks %}
+      <tr>
+        <td>{{ block.name }}</td>
+        <td>{{ block.address }}</td>
+        <td>
+          <a href="{% url 'management_edit_block' block.id %}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <h2>Apartments</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Block</th>
+        <th>Floor</th>
+        <th>Number</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for apartment in apartments %}
+      <tr>
+        <td>{{ apartment.block }}</td>
+        <td>{{ apartment.floor }}</td>
+        <td>{{ apartment.number }}</td>
+        <td>
+          <a href="{% url 'management_edit_apartment' apartment.id %}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <h2>Residents</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Apartment</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for resident in residents %}
+      <tr>
+        <td>{{ resident.name }}</td>
+        <td>{{ resident.apartment }}</td>
+        <td>{{ resident.email }}</td>
+        <td>
+          <a href="{% url 'management_edit_resident' resident.id %}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <h2>Managers</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for manager in managers %}
+      <tr>
+        <td>{{ manager.name }}</td>
+        <td>{{ manager.email }}</td>
+        <td>
+          <a href="{% url 'management_edit_manager' manager.id %}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

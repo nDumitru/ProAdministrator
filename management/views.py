@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Q
 from .forms import BlockForm, ApartmentForm, ResidentForm, ManagerForm
 from .models import Block, Apartment, Resident, Manager
+
 
 @login_required
 def index(request):
@@ -18,7 +18,8 @@ def index(request):
         'residents': residents,
         'managers': managers
     }
-    return render(request, 'management/index.html', context)
+    return render(request, '../templates/management/index.html', context)
+
 
 @login_required
 def add_block(request):
@@ -37,6 +38,7 @@ def add_block(request):
     }
     return render(request, 'management/form.html', context)
 
+
 @login_required
 def add_apartment(request):
     if request.method == 'POST':
@@ -53,6 +55,7 @@ def add_apartment(request):
         'title': 'Add Apartment'
     }
     return render(request, 'management/form.html', context)
+
 
 @login_required
 def add_resident(request):
@@ -71,6 +74,7 @@ def add_resident(request):
     }
     return render(request, 'management/form.html', context)
 
+
 @login_required
 def add_manager(request):
     if request.method == 'POST':
@@ -87,6 +91,7 @@ def add_manager(request):
         'title': 'Add Manager'
     }
     return render(request, 'management/form.html', context)
+
 
 @login_required
 def edit_block(request, block_id):
@@ -108,6 +113,7 @@ def edit_block(request, block_id):
     }
     return render(request, 'management/form.html', context)
 
+
 @login_required
 def edit_apartment(request, apartment_id):
     apartment = Apartment.objects.get(pk=apartment_id)
@@ -117,4 +123,13 @@ def edit_apartment(request, apartment_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Apartment has been updated successfully.')
-            return
+            return redirect('management_index')
+    else:
+        form = ApartmentForm(instance=apartment)
+
+    context = {
+        'form': form,
+        'title': 'Edit Apartment',
+        'apartment_id': apartment_id
+    }
+    return render(request, '../templates/management/form.html', context)

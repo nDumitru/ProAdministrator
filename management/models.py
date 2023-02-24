@@ -1,4 +1,31 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class Block(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    number_of_floors = models.IntegerField()
+    manager = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Apartment(models.Model):
+    number = models.IntegerField()
+    floor = models.IntegerField()
+    block = models.ForeignKey(Block, on_delete=models.CASCADE)
+
+
+class Resident(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254)
+    phone = models.CharField(max_length=20)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+
+
+class Manager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20)
+    block = models.ForeignKey(Block, on_delete=models.CASCADE)
 
 
 class Administrator(models.Model):
