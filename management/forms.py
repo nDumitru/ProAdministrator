@@ -1,12 +1,12 @@
 from django import forms
 from django.forms import TextInput, NumberInput, EmailInput, Textarea, DateInput
 
-from management.models import Trainer
+from management.models import Administrator
 
 
-class TrainerForm(forms.ModelForm):
+class AdministratorForm(forms.ModelForm):
     class Meta:
-        model = Trainer
+        model = Administrator
         fields = ['first_name', 'last_name', 'course',
                   'description', 'start_date', 'end_date']
 
@@ -26,9 +26,9 @@ class TrainerForm(forms.ModelForm):
             for item in exclude:
                 self.fields.pop(item)
 
-class TrainerUpdateForm(forms.ModelForm):
+class AdministratorUpdateForm(forms.ModelForm):
     class Meta:
-        model = Trainer
+        model = Administrator
 
         fields = ['first_name', 'last_name', 'course',
                   'description', 'start_date', 'end_date']
