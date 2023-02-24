@@ -8,6 +8,6 @@ urlpatterns = [
     path('update_administrator/<int:pk>/', views.AdministratorUpdateView.as_view(), name='update-administrator'),
     path('delete_administrator/<int:pk>/', views.AdministratorDeleteView.as_view(), name='delete-administrator'),
     path('details_of_administrator/<int:pk>/', views.AdministratorDetailView.as_view(), name='details-of-administrator'),
-    path('inactive_administrator/<int:pk>/', views.inactivate_Administratorr, name='inactive-administrator')
+    path('inactive_administrator/<int:pk>/', views.inactivate_Administrator, name='inactive-administrator')
 
 ]

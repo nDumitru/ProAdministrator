@@ -1,8 +1,67 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from .forms import BlockForm, ApartmentForm, ResidentForm, ManagerForm
 from .models import Block, Apartment, Resident, Manager
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib import messages
+from .models import Administrator
+from .forms import AdministratorForm, AdministratorUpdateForm
+
+
+class AdministratorCreateView(LoginRequiredMixin, CreateView):
+    model = Administrator
+    form_class = AdministratorForm
+    template_name = 'management/create_administrator.html'
+    success_url = reverse_lazy('list-of-administrators')
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
+class AdministratorListView(LoginRequiredMixin, ListView):
+    model = Administrator
+    context_object_name = 'administrators'
+    template_name = 'management/list_of_administrators.html'
+
+
+class AdministratorUpdateView(LoginRequiredMixin, UpdateView):
+    model = Administrator
+    form_class = AdministratorUpdateForm
+    template_name = 'management/update_administrator.html'
+    success_url = reverse_lazy('list-of-administrators')
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
+
+class AdministratorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Administrator
+    success_url = reverse_lazy('list-of-administrators')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Administrator was deleted successfully.')
+        return super().delete(request, *args, **kwargs)
+
+
+class AdministratorDetailView(LoginRequiredMixin, DetailView):
+    model = Administrator
+    template_name = '../templates/management/details_of_administrator.html'
+
+
+@method_decorator(login_required, name='dispatch')
+def inactivate_administrator(request, pk):
+    admin = Administrator.objects.get(pk=pk)
+    if request.method == 'POST':
+        admin.is_active = False
+        admin.save()
+        messages.success(request, 'Administrator was inactivated successfully.')
+        return redirect('list-of-administrators')
+    return render(request, 'management/inactivate_administrator.html', {'admin': admin})
 
 
 @login_required

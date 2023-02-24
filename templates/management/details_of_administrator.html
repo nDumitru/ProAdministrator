@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Trainer - {{ trainer }} {% endblock %}
+{% block title %} Administrator - {{ administrator }} {% endblock %}
 
 {% block content %}
     <div class="container">
@@ -9,7 +9,7 @@
                 <br><br>
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="text-center"> Trainer - {{ trainer }}</h3>
+                        <h3 class="text-center"> Administrator - {{ administrator }}</h3>
                     </div>
                     <div class="card-body">
                         <p> Age: {{ trainer.age }}</p>
@@ -17,7 +17,7 @@
                         <p> Is Active: {% if trainer.active %} Yes {% else %} No {% endif %}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="{% url 'list-of-trainers' %}" class="btn btn-outline-success">Cancel</a>
+                        <a href="{% url 'list-of-administrators' %}" class="btn btn-outline-success">Cancel</a>
                     </div>
                 </div>
             </div>
