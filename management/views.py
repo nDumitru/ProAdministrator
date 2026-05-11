@@ -50,7 +50,7 @@ class AdministratorDeleteView(LoginRequiredMixin, DeleteView):
 
 class AdministratorDetailView(LoginRequiredMixin, DetailView):
     model = Administrator
-    template_name = '../templates/management/details_of_administrator.html'
+    template_name = 'management/details_of_administrator.html'
 
 
 @method_decorator(login_required, name='dispatch')
@@ -77,7 +77,7 @@ def index(request):
         'residents': residents,
         'managers': managers
     }
-    return render(request, '../templates/management/index.html', context)
+    return render(request, 'management/index.html', context)
 
 
 @login_required
@@ -191,4 +191,4 @@ def edit_apartment(request, apartment_id):
         'title': 'Edit Apartment',
         'apartment_id': apartment_id
     }
-    return render(request, '../templates/management/form.html', context)
+    return render(request, 'management/form.html', context)

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_filters",
-    "intro",
+    "accounts",
     "home",
     "residents",
     "management",
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'intro.ProAdminUser'
+AUTH_USER_MODEL = 'accounts.ProAdminUser'
 
 
 # Internationalization

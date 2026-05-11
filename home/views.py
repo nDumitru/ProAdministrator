@@ -17,4 +17,4 @@ def search(request):
     else:
         all_entries = Administrator.objects.all()
 
-    return render(request, '../templates/search.html', {'entries': all_entries})
+    return render(request, 'search.html', {'entries': all_entries})

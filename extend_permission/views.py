@@ -1,20 +1,17 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.views import generic
-from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from forms import ExtendUserForm, ExtendPermissionForm
-from django.views.generic import CreateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from forms import ExtendUserForm
-from models import Permission, ExtendPermission
+from extend_permission.forms import ExtendUserForm, ExtendPermissionForm
+from extend_permission.models import Permission, ExtendPermission
 
 
 User = get_user_model()

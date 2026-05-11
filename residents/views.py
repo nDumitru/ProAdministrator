@@ -10,14 +10,14 @@ from .models import Resident
 
 
 class ResidentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    template_name = '../templates/residents/add_resident.html'
+    template_name = 'residents/add_resident.html'
     model = Resident
     form_class = ResidentForm
     success_url = reverse_lazy('list-of-residents')
 
 
 class ResidentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    template_name = '../templates/residents/list_of_residents.html'
+    template_name = 'residents/list_of_residents.html'
     model = Resident
     context_object_name = 'all_residents'
     permission_required = 'residents.view_resident'
@@ -39,7 +39,7 @@ class ResidentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class ResidentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    template_name = '../templates/residents/update_resident.html'
+    template_name = 'residents/update_resident.html'
     model = Resident
     form_class = ResidentUpdateForm
     success_url = reverse_lazy('list-of-residents')
@@ -55,14 +55,14 @@ class ResidentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
 
 
 class ResidentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    template_name = '../templates/residents/delete_resident.html'
+    template_name = 'residents/delete_resident.html'
     model = Resident
     success_url = reverse_lazy('list-of-residents')
     permission_required = 'residents.delete_resident'
 
 
 class ResidentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    template_name = '../templates/residents/details_of_resident.html'
+    template_name = 'residents/details_of_resident.html'
     model = Resident
     permission_required = 'residents.view_resident'
 
