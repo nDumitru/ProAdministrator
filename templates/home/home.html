@@ -1,21 +1,143 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}ProAdmin | Home{% endblock %}
+{% block title %}ProAdministrator | Acasă{% endblock %}
 
 {% block content %}
 
-    <div class="container">
-        <h1>Welcome to ProAdmin</h1>
-        <p>This is the home page of our site. Please use the navigation bar to access the other pages of the site.</p>
-        <hr>
-        <div class="row">
-            <div class="col-md-6">
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero animate-fade-in">
+        <h1 class="hero-title">Bine ai venit la ProAdministrator!</h1>
+        <p class="lead mt-3">Sistem modern pentru administrarea blocurilor și rezidenților.</p>
+    </div>
+
+    {% if user.is_authenticated %}
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3 col-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="text-primary">{{ blocks|default:"0" }}</h2>
+                    <p class="mb-0 text-secondary">Blocuri</p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <img class="img-responsive" src="{% static 'static/img/apartament.jpg' %}" alt="Apartment building">
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="text-success">{{ apartments|default:"0" }}</h2>
+                    <p class="mb-0 text-secondary">Apartamente</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="text-info">{{ residents|default:"0" }}</h2>
+                    <p class="mb-0 text-secondary">Rezidenți Activi</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="text-warning">{{ administrators|default:"0" }}</h2>
+                    <p class="mb-0 text-secondary">Administratori</p>
+                </div>
             </div>
         </div>
     </div>
+    {% endif %}
+
+    <!-- Features Cards -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary mb-3">
+                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"/>
+                        <path d="M9 22V12H15V22"/>
+                    </svg>
+                    <h5 class="card-title">Gestionează Clădiri</h5>
+                    <p class="card-text text-secondary">Adaugă și administrează blocuri, apartamente și informații despre clădiri.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary mb-3">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <h5 class="card-title">Rezidenți</h5>
+                    <p class="card-text text-secondary">Ține evidența tuturor rezidenților din blocurile administrate.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary mb-3">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <h5 class="card-title">Securitate</h5>
+                    <p class="card-text text-secondary">Sistem securizat cu autentificare și permisiuni pentru utilizatori.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    {% if user.is_authenticated %}
+    <div class="mt-5">
+        <h2 class="mb-4">Acțiuni Rapide</h2>
+        <div class="d-flex flex-wrap gap-3">
+            <a href="{% url 'resident_add' %}" class="btn btn-primary btn-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v8M8 12h8"/>
+                </svg>
+                Adaugă Rezident
+            </a>
+            <a href="{% url 'resident-list' %}" class="btn btn-outline-primary btn-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2">
+                    <line x1="8" y1="6" x2="21" y2="6"/>
+                    <line x1="8" y1="12" x2="21" y2="12"/>
+                    <line x1="8" y1="18" x2="21" y2="18"/>
+                </svg>
+                Lista Rezidenți
+            </a>
+            <a href="{% url 'list-of-administrators' %}" class="btn btn-outline-primary btn-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                Administratori
+            </a>
+            <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary btn-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                Panou Admin
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center mt-5">
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            Autentifică-te
+        </a>
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}

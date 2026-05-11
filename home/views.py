@@ -1,20 +1,32 @@
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-from management.models import Administrator
+from management.models import Administrator, Block, Apartment, Resident
 
 
+@method_decorator(login_required, name='dispatch')
 class HomeTemplateView(TemplateView):
-    template_name = 'home/home.html'  # specificam calea catre pagin .html pentru aceasta clasa
+    template_name = 'home/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blocks'] = Block.objects.count()
+        context['apartments'] = Apartment.objects.count()
+        context['residents'] = Resident.objects.filter(active=True).count()
+        context['administrators'] = Administrator.objects.filter(is_active=True).count()
+        return context
 
 
 def search(request):
     search = request.GET.get('search')
     if search:
         all_entries = Administrator.objects.filter(
-            Q(course__icontains=search) | Q(first_name__icontains=search))  # cu si & iar cu not cu exclude
+            Q(first_name__icontains=search) | Q(last_name__icontains=search) | Q(email__icontains=search)
+        )
     else:
-        all_entries = Administrator.objects.all()
+        all_entries = Administrator.objects.all()[:10]
 
     return render(request, 'search.html', {'entries': all_entries})
