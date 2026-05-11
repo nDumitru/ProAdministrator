@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ProAdministrator | Lista Probleme Raportate{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero animate-fade-in">
+        <h1 class="hero-title">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 12px;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            Probleme Raportate
+        </h1>
+        <p class="lead mt-3">Lista tuturor problemelor raportate de rezidenți.</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Toate Problemele</h4>
+            <a href="{% url 'report_issue' %}" class="btn btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Adaugă Problemă
+            </a>
+        </div>
+        <div class="card-body">
+            {% if issues %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nume Rezident</th>
+                                <th>Apartament</th>
+                                <th>Tip Problemă</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th>Acțiuni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for issue in issues %}
+                                <tr>
+                                    <td>{{ issue.id }}</td>
+                                    <td>{{ issue.resident_name }}</td>
+                                    <td>{{ issue.apartment_number }}</td>
+                                    <td>
+                                        <span class="badge bg-info">
+                                            {{ issue.get_issue_type_display }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if issue.status == 'pending' %}
+                                            <span class="badge bg-warning">În Așteptare</span>
+                                        {% elif issue.status == 'in_progress' %}
+                                            <span class="badge bg-primary">În Progres</span>
+                                        {% elif issue.status == 'resolved' %}
+                                            <span class="badge bg-success">Rezolvat</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Respins</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ issue.created_at|date:"d.m.Y H:i" }}</td>
+                                    <td>
+                                        <a href="{% url 'report_issue:issue_update' issue.pk %}" class="btn btn-sm btn-outline-primary">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1" class="mb-3">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <p class="text-secondary lead">Nu există probleme raportate.</p>
+                    <a href="{% url 'report_issue' %}" class="btn btn-primary">Raportează o Problemă</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

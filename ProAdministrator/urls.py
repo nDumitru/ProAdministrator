@@ -19,6 +19,7 @@ urlpatterns = [
     path('', include('residents.urls')),
     path('', include('management.urls')),
     path('', include('userextend.urls')),
+    path('', include('report_issue.urls')),
 
     # Authentication URLs
     path("login/", views.LoginView.as_view(form_class=AuthenticationNewForm), name="login"),
