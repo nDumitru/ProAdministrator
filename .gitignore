@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# Media files
+*.log
+local_settings.py
+*.pot
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Static files collected
+/static/
+/media/
+
+# Secrets
+*.key
+*.pem
+credentials.json
+
+# macOS
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+*.tmp

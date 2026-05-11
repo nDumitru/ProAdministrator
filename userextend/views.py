@@ -1,5 +1,6 @@
 import random
 
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail, EmailMessage
@@ -8,7 +9,6 @@ from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from ProAdmin.settings import EMAIL_HOST_USER
 from userextend.forms import UserExtendForm
 
 
@@ -44,7 +44,7 @@ class UserCreateView(CreateView):
             subject = f'Ti-ai creat un cont nou'
             message = get_template('mail.html').render(details_user)
 
-            mail = EmailMessage(subject, message, EMAIL_HOST_USER, [new_user.email])
+            mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [new_user.email])
             mail.content_subtype = 'html' # main content is now text/html
             mail.send()
 

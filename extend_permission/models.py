@@ -1,27 +1,30 @@
 from django.contrib.auth.models import Permission
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class ExtendUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='extend_user')
+    """Extended user profile with additional fields."""
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='extend_user')
     phone = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.email)
 
 
 class ExtendPermission(models.Model):
-    extenduser = models.ForeignKey(ExtendUser, on_delete=models.CASCADE)
+    """Custom permission extension for users."""
+    extenduser = models.ForeignKey(ExtendUser, on_delete=models.CASCADE, related_name='permissions')
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.extenduser.user.username} - {self.permission.name}'
+        return f'{self.extenduser} - {self.permission.name}'
 
     @staticmethod
     def add_permission_to_extenduser(permission, extenduser):
-        # Verifica dacă permisiunea există deja pentru utilizatorul extins
+        """Add a permission to an extended user."""
+        # Check if permission already exists for the extended user
         content_type = ContentType.objects.get_for_model(extenduser)
         existing_permission = Permission.objects.filter(
             content_type=content_type,
@@ -30,14 +33,14 @@ class ExtendPermission(models.Model):
         ).first()
 
         if not existing_permission:
-            # Dacă permisiunea nu există, o creează
+            # If permission doesn't exist, create it
             existing_permission = Permission.objects.create(
                 content_type=content_type,
                 codename=permission.codename,
                 name=permission.name,
             )
 
-        # Asociem permisiunea la utilizatorul extins
+        # Associate the permission with the extended user
         ExtendPermission.objects.create(
             extenduser=extenduser,
             permission=existing_permission,

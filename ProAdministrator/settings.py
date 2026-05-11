@@ -20,12 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-aj$kxu0wgo5bi@r0hx9jf1_9$pj9mk9=!6m%my6(#ygho&@p!y"
+# IMPORTANT: Set this in environment variable DJANGO_SECRET_KEY for production
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-change-this-in-production-env')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS - configure for production
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -144,14 +146,13 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # configurere mail
-#
+# IMPORTANT: Set email credentials in environment variables for production
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-EMAIL_HOST = 'mail.nechitadumitru.ro'  # mail.email.ro
-EMAIL_HOST_USER = 'test@nechitadumitru.ro'
-EMAIL_HOST_PASSWORD = 'Django1234!'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'mail.nechitadumitru.ro')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'test@nechitadumitru.ro')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 
 # TLS- Transport Layer Security - sunt protocoale criptografice ce permit comunicatii sigure pe internet.

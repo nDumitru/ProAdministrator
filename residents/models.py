@@ -22,6 +22,7 @@ class Resident(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     notes = models.TextField(blank=True, null=True)
+    active = models.BooleanField(default=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
