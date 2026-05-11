@@ -133,7 +133,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT is only for production (run collectstatic)
+# In development, static files are served from STATICFILES_DIRS
 
 
 # Default primary key field type

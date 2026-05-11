@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from management.models import Administrator, Block, Apartment, Resident
+from management.models import Administrator
 
 
 @method_decorator(login_required, name='dispatch')
@@ -13,10 +13,17 @@ class HomeTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blocks'] = Block.objects.count()
-        context['apartments'] = Apartment.objects.count()
-        context['residents'] = Resident.objects.filter(active=True).count()
-        context['administrators'] = Administrator.objects.filter(is_active=True).count()
+        try:
+            from management.models import Block, Apartment, Resident
+            context['blocks'] = Block.objects.count()
+            context['apartments'] = Apartment.objects.count()
+            context['residents'] = Resident.objects.filter(active=True).count()
+            context['administrators'] = Administrator.objects.filter(is_active=True).count()
+        except Exception:
+            context['blocks'] = 0
+            context['apartments'] = 0
+            context['residents'] = 0
+            context['administrators'] = 0
         return context
 
 
